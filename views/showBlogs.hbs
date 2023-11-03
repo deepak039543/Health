@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/themify-icons.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+
+        }
+
+        .card {
+            /* height: 500px; */
+            width: 300px;
+            margin: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 10px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .card-subtitle {
+            font-size: 1rem;
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .card-video {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .read-full-button {
+            display: block;
+            text-align: center;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .read-full-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-area ">
+            <div id="sticky-header" class="main-header-area">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-3 col-lg-2">
+                            <div class="logo">
+                                <a href="/">
+                                    <img src="./img/indian.png" alt="images">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-7">
+                            <div class="main-menu  d-none d-lg-block">
+                                 <nav>
+                                     <ul id="navigation">
+                                            <li><a href="/registeredHospitals">Find
+                                                    Doctors</a></li>
+                                            <li><a href="/registeredLab">Book
+                                                    Lab Test</a></li>
+                                            <li><a href="#">Service Providers<i
+                                                        class="ti-angle-down"></i></a>
+                                                <ul class="submenu">
+                                                    <li><a href="/forHospitals">By
+                                                            Hospitals</a></li>
+                                                    <li><a href="/forDoctors">By
+                                                            Doctors</a></li>
+                                                    <li><a href="/labForm">By
+                                                            Laboratory</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="/showBlogs">Read
+                                                    Blogs</a></li>
+
+                                        </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+                            <div class="Appointment">
+                                <div class="book_btn d-none d-lg-block">
+                                    <a class="popup-with-form" href="#test-form">Make an
+                                        Appointment</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="cards">
+        {{#each blogs}}
+        <div class="card">
+            <img src="/doctorsUploads/{{blogimages}}" alt="Image 1">
+            <div class="card-content">
+                <h3 class="card-title">Topic Title :{{topic}}</h3>
+                <p class="card-subtitle">Subtopic :{{subtopic}}</p>
+
+                {{#if blogvideos}}
+                <video class="card-video" controls>
+                    <source src="/doctorsUploads/{{blogvideos}}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+
+                {{/if}}
+                <a href="/fullBlog/{{_id}}" class="read-full-button">Read Full Articles</a>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+
+
+</body>
+
+</html>

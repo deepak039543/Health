@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hospital Registration</title>
+   
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/themify-icons.css">
+    <link rel="stylesheet" href="./css/style.css">
+     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'poppins', sans-serif;
+            background: #f5fbff;
+        }
+
+        .formbold-main-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* padding: 48px; */
+        }
+
+        .formbold-form-wrapper {
+            margin: 0 auto;
+            max-width: 570px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+        }
+
+        .formbold-form-img {
+            margin-bottom: 45px;
+        }
+
+        .formbold-input-group {
+            margin-bottom: 18px;
+        }
+
+        .formbold-form-select {
+            width: 100%;
+            padding: 12px 22px;
+            border-radius: 5px;
+            border: 1px solid #dde3ec;
+            background: #ffffff;
+            font-size: 16px;
+            color: #536387;
+            outline: none;
+            resize: none;
+        }
+
+        .formbold-input-radio-wrapper {
+            margin-bottom: 25px;
+        }
+
+        .formbold-radio-flex {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .formbold-radio-label {
+            font-size: 14px;
+            line-height: 24px;
+            color: #07074d;
+            position: relative;
+            padding-left: 25px;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .formbold-input-radio {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .formbold-radio-checkmark {
+            position: absolute;
+            top: -1px;
+            left: 0;
+            height: 18px;
+            width: 18px;
+            background-color: #ffffff;
+            border: 1px solid #dde3ec;
+            border-radius: 50%;
+        }
+
+        .formbold-radio-label .formbold-input-radio:checked~.formbold-radio-checkmark {
+            background-color: #6a64f1;
+        }
+
+        .formbold-radio-checkmark:after {
+            content: '';
+            position: absolute;
+            display: none;
+        }
+
+        .formbold-radio-label .formbold-input-radio:checked~.formbold-radio-checkmark:after {
+            display: block;
+        }
+
+        .formbold-radio-label .formbold-radio-checkmark:after {
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ffffff;
+            transform: translate(-50%, -50%);
+        }
+
+        .formbold-form-input {
+            width: 100%;
+            padding: 13px 22px;
+            border-radius: 5px;
+            border: 1px solid #dde3ec;
+            background: #ffffff;
+            font-weight: 500;
+            font-size: 16px;
+            color: #07074d;
+            outline: none;
+            resize: none;
+        }
+
+        .formbold-form-input::placeholder {
+            color: #536387;
+        }
+
+        .formbold-form-input:focus {
+            border-color: #6a64f1;
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .formbold-form-label {
+            color: #07074d;
+            font-size: 14px;
+            line-height: 24px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .formbold-btn {
+            text-align: center;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 5px;
+            padding: 14px 25px;
+            border: none;
+            font-weight: 500;
+            background-color: #1e79a1;
+            color: white;
+            cursor: pointer;
+            margin-top: 25px;
+        }
+
+        .formbold-btn:hover {
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+
+</head>
+<body>
+   <header>
+        <div class="header-area ">
+            <div id="sticky-header" class="main-header-area">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-3 col-lg-2">
+                            <div class="logo">
+                                <a href="index.html">
+                                    <img src="./img/indian.png" alt="images">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-7">
+                            <div class="main-menu  d-none d-lg-block">
+                                <nav>
+                                     <ul id="navigation">
+                                            <li><a href="/registeredHospitals">Find
+                                                    Doctors</a></li>
+                                            <li><a href="/registeredLab">Book
+                                                    Lab Test</a></li>
+                                            <li><a href="#">Service Providers<i
+                                                        class="ti-angle-down"></i></a>
+                                                <ul class="submenu">
+                                                    <li><a href="/forHospitals">By
+                                                            Hospitals</a></li>
+                                                    <li><a href="/forDoctors">By
+                                                            Doctors</a></li>
+                                                    <li><a href="/labForm">By
+                                                            Laboratory</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="/showBlogs">Read
+                                                    Blogs</a></li>
+
+                                        </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+                            <div class="Appointment">
+                                <div class="book_btn d-none d-lg-block">
+                                    <a class="popup-with-form" href="#test-form">Make an
+                                        Appointment</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+{{!-- add a form for hospital registration --}}
+    <div class="formbold-main-wrapper">
+ 
+        <div class="formbold-form-wrapper">
+            <form action="" method="POST">
+              <h2>Registration Form</h2>
+              <p>if you already sign up then click here <a style="color:blue;" href="/hospitalLogin">login</a></p>
+                <div class="formbold-input-group">
+                    <label for="name" class="formbold-form-label"> </label>
+                    <input type="text" name="name" id="name" placeholder="Enter your Hospital name"
+                        class="formbold-form-input" />
+                </div>
+                <div class="formbold-input-group">
+                    <label for="username" class="formbold-form-label"></label>
+                    <input type="text" name="username" id="username" placeholder="Enter username"
+                        class="formbold-form-input" />
+                </div>
+
+                <div class="formbold-input-group">
+                    <label for="type" class="formbold-form-label"> </label>
+                    <input type="text" name="type" id="type" placeholder="Enter Hospital type (government / private)"
+                        class="formbold-form-input" />
+                </div>
+
+                <div class="formbold-input-group">
+                    <label for="address" class="formbold-form-label">  </label>
+                    <input type="text" name="address" id="address" placeholder="Enter your full address" class="formbold-form-input" />
+                </div>
+
+                 <div class="formbold-input-group">
+                    <label for="district" class="formbold-form-label"></label>
+                    <input type="text" name="district" id="district" placeholder="Enter your full address" class="formbold-form-input" />
+                </div>
+
+
+                <div class="formbold-input-group">
+                    <label for="pincode" class="formbold-form-label">  </label>
+                    <input type="text" name="pincode" id="pincode" placeholder="Enter your pincode" class="formbold-form-input" />
+                </div>
+
+                <div class="formbold-input-checkbox-wrapper">
+                    <label class="formbold-form-label">
+                        Services Provided:
+                    </label>
+                
+                    <div class="formbold-checkbox-flex">
+                        <div class="formbold-checkbox-group">
+                            <label class="formbold-checkbox-label" for="emergencyCare">
+                                <input class="formbold-input-checkbox" type="checkbox" name="services" id="emergencyCare" value="emergencyCare" />
+                                Emergency Care
+                                <span class="formbold-checkbox-checkmark"></span>
+                            </label>
+                        </div>
+                
+                        <div class="formbold-checkbox-group">
+                            <label class="formbold-checkbox-label" for="surgery">
+                                <input class="formbold-input-checkbox" type="checkbox" name="services" id="surgery" value="surgery" />
+                                Surgery
+                                <span class="formbold-checkbox-checkmark"></span>
+                            </label>
+                        </div>
+                
+                        <div class="formbold-checkbox-group">
+                            <label class="formbold-checkbox-label" for="radiology">
+                                <input class="formbold-input-checkbox" type="checkbox" name="services" id="radiology" value="radiology" />
+                                Radiology
+                                <span class="formbold-checkbox-checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="formbold-checkbox-group">
+                            <label class="formbold-checkbox-label" for="neurologist">
+                                <input class="formbold-input-checkbox" type="checkbox" name="services" id="neurologist" value="neurologist" />
+                                Neurologist
+                                <span class="formbold-checkbox-checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="formbold-checkbox-group">
+                            <label class="formbold-checkbox-label" for="cardiologist">
+                                <input class="formbold-input-checkbox" type="checkbox" name="services" id="cardiologist" value="cardiologist" />
+                                Cardiologist
+                                <span class="formbold-checkbox-checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="formbold-checkbox-group">
+                            <label class="formbold-checkbox-label" for="orthopedicSurgeon">
+                                <input class="formbold-input-checkbox" type="checkbox" name="services" id="orthopedicSurgeon" value="orthopedicSurgeon" />
+                                Orthopedic Surgeon
+                                <span class="formbold-checkbox-checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="formbold-checkbox-group">
+                            <label class="formbold-checkbox-label" for="dermatologist">
+                                <input class="formbold-input-checkbox" type="checkbox" name="services" id="dermatologist" value="dermatologist" />
+                                Dermatologist
+                                <span class="formbold-checkbox-checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="formbold-checkbox-group">
+                            <label class="formbold-checkbox-label" for="gastroenterologist">
+                                <input class="formbold-input-checkbox" type="checkbox" name="services" id="gastroenterologist" value="gastroenterologist" />
+                                Gastroenterologist
+                                <span class="formbold-checkbox-checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="formbold-checkbox-group">
+                            <label class="formbold-checkbox-label" for="ophthalmologist">
+                                <input class="formbold-input-checkbox" type="checkbox" name="services" id="ophthalmologist" value="ophthalmologist" />
+                                Opththaalmologist
+                                <span class="formbold-checkbox-checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="formbold-checkbox-group">
+                            <label class="formbold-checkbox-label" for="otolaryngologist">
+                                <input class="formbold-input-checkbox" type="checkbox" name="services" id="otolaryngologist" value="otolaryngologist" />
+                                Otolaryngologist
+                                <span class="formbold-checkbox-checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="formbold-checkbox-group">
+                            <label class="formbold-checkbox-label" for="gynecologist">
+                                <input class="formbold-input-checkbox" type="checkbox" name="services" id="gynecologist" value="gynecologist" />
+                                Gynecologist
+                                <span class="formbold-checkbox-checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="formbold-checkbox-group">
+                            <label class="formbold-checkbox-label" for="psychiatrist">
+                                <input class="formbold-input-checkbox" type="checkbox" name="services" id="psychiatrist" value="psychiatrist" />
+                                Pshychiatrist
+                                <span class="formbold-checkbox-checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="formbold-checkbox-group">
+                            <label class="formbold-checkbox-label" for="urologist">
+                                <input class="formbold-input-checkbox" type="checkbox" name="services" id="urologist" value="urologist" />
+                                Urologist
+                                <span class="formbold-checkbox-checkmark"></span>
+                            </label>
+                        </div>
+                         <div class="formbold-checkbox-group">
+                            <label class="formbold-checkbox-label" for="pediatrics">
+                                <input class="formbold-input-checkbox" type="checkbox" name="services" id="pediatrics" value="pediatrics" />
+                                Pediatrics
+                                <span class="formbold-checkbox-checkmark"></span>
+                            </label>
+                        </div>
+                       
+                
+                    </div>
+                </div>
+                
+
+                <div>
+                    <label for="message" class="formbold-form-label">
+                      
+                    </label>
+                    <textarea rows="4" name="message" id="message" placeholder=" Extra info about Your Hospital.."
+                        class="formbold-form-input"></textarea>
+                </div>
+                <div class="formbold-input-group">
+                    <label for="password" class="formbold-form-label"></label>
+                    <input type="text" name="password" id="password" placeholder="Enter new Password" class="formbold-form-input" />
+                </div>
+              
+                <button class="formbold-btn">Submit</button>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+
+{{!-- 
+  <div class="container">
+    <h2>Hospital Information</h2>
+    <form action="/forHospitals" method="POST">
+      <label for="name">Hospital Name:</label>
+      <input type="text" id="name" name="name" placeholder="Your hospital name" required>
+    
+     <label for="type">type</label>
+      <input type="text" id="type" name="type" placeholder="Government / Private" required>
+    
+     <label for="address">Full Address</label>
+      <input type="text" id="address" name="address" placeholder="enter full address" required>
+    
+     <label for="district">District</label>
+     <input type="text" id="district" name="district" placeholder="district" required>
+    
+    <label for="pincode">Pincode</label>
+     <input type="text" id="pincode" name="pincode" placeholder="pincode" required>
+
+      <label>Services Provided:</label>
+      <label for="emergencyCare">Emergency Care</label>
+      <input type="checkbox" id="emergencyCare" name="services" value="Emergency Care">
+      <label for="surgery">Surgery</label>
+      <input type="checkbox" id="surgery" name="services" value="Surgery">
+      <label for="radiology">Radiology</label>
+      <input type="checkbox" id="radiology" name="services" value="Radiology">
+      <label for="pediatrics">Pediatrics</label>
+      <input type="checkbox" id="pediatrics" name="services" value="Pediatrics">
+      <label for="neurologist">Neurologist</label>
+      <input type="checkbox" id="neurologist" name="services" value="Neurologist">
+      <label for="cardiologist">Cardiologist</label>
+      <input type="checkbox" id="cardiologist" name="services" value="Cardiologist">
+      <label for="orthopedicSurgeon">Orthopedic Surgeon</label>
+      <input type="checkbox" id="orthopedicSurgeon" name="services" value="Orthopedic Surgeon">
+      <label for="dermatologist">Dermatologist</label>
+      <input type="checkbox" id="dermatologist" name="services" value="Dermatologist">
+      <label for="gastroenterologist">Gastroenterologist</label>
+      <input type="checkbox" id="gastroenterologist" name="services" value="Gastroenterologist">
+      <label for="ophthalmologist">Ophthalmologist</label>
+      <input type="checkbox" id="ophthalmologist" name="services" value="Ophthalmologist">
+      <label for="otolaryngologist">Otolaryngologist</label>
+      <input type="checkbox" id="otolaryngologist" name="services" value="Otolaryngologist">
+      <label for="gynecologist">Gynecologist</label>
+      <input type="checkbox" id="gynecologist" name="services" value="Gynecologist">
+      <label for="ophthalmologist">Ophthalmologist</label>
+      <input type="checkbox" id="ophthalmologist" name="services" value="Ophthalmologist">
+      <label for="psychiatrist">Psychiatrist</label>
+      <input type="checkbox" id="psychiatrist" name="services" value="Psychiatrist">
+      <label for="urologist">Urologist</label>
+      <input type="checkbox" id="urologist" name="services" value="Urologist">
+
+      
+
+      <input type="submit" value="Submit">
+    </form>
+  </div> --}}
+</body>
+</html>

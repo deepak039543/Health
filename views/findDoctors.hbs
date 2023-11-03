@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medico</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        .table {
+
+            width: 90%;
+            margin: auto;
+            margin-top: 1%;
+
+        }
+    </style>
+</head>
+
+<body>
+    <h2>find Doctors </h2>
+    <button type="button" class="btn btn-secondary float-right" id="showNearbyHospitals">show nearby hospital</button>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Hospital Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Full Address</th>
+                <th scope="col">District</th>
+                <th scope="col">Show Doctors List</th>
+                <th scope="col">show Location</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {{#each details}}
+            <tr>
+                <td>{{Name}}</td>
+                <td>{{Type}}</td>
+                <td>{{Address_of_Hospital}}</td>
+                <td>{{District}}</td>
+                <td><button type="button" class="btn btn-success">Show
+                        Doctors</button></td>
+                <td><a href="#" lat="{{latitude}}" log="{{longitude}}" class="map-link">view on map</a></td>
+            </tr>
+            {{/each}}
+
+        </tbody>
+    </table>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+<script>
+
+    // Function to handle "view on map" link clicks
+    function handleViewOnMapClick(event) {
+        event.preventDefault();
+        const link = event.currentTarget;
+        const latitude = link.getAttribute('lat');
+        const longitude = link.getAttribute('log');
+        console.log(latitude);
+        console.log(longitude);
+        // Construct the Google Maps URL
+        const googleMapsURL = `https://www.google.com/maps?q=${latitude},${longitude}`;
+
+        // Open the Google Maps URL in a new tab
+        window.open(googleMapsURL, '_blank');
+    }
+
+    // Attach a click event listener to all links with class "map-link"
+    const mapLinks = document.querySelectorAll('.map-link');
+    mapLinks.forEach(link => {
+        link.addEventListener('click', handleViewOnMapClick);
+    });
+
+</script>
+
+<script>
+    document.getElementById("showNearbyHospitals").addEventListener("click", function () {
+        // Check if geolocation is supported by the browser
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                const userLatitude = position.coords.latitude;
+                const userLongitude = position.coords.longitude;
+
+                // Calculate distances and sort hospitals
+                const hospitals = Array.from(document.querySelectorAll('.map-link')).map(link => {
+                    const hospitalLatitude = parseFloat(link.getAttribute('lat'));
+                    console.log(hospitalLatitude);
+                    const hospitalLongitude = parseFloat(link.getAttribute('log'));
+                    console.log(hospitalLongitude);
+                    const distance = calculateDistance(userLatitude, userLongitude, hospitalLatitude, hospitalLongitude);
+                    console.log(distance);
+                    return {
+                        link,
+                        distance
+                    };
+                });
+
+                hospitals.sort((a, b) => a.distance - b.distance);
+
+                // Update the table with sorted hospitals
+                const tableBody = document.querySelector('tbody');
+                tableBody.innerHTML = "";
+
+                hospitals.forEach(hospital => {
+                    tableBody.appendChild(hospital.link.parentNode.parentNode.cloneNode(true));
+                });
+                console.log(hospitals);
+                // Reattach the click event listener for "View on Map" links
+                const mapLinks = document.querySelectorAll('.map-link');
+                mapLinks.forEach(link => {
+                    link.addEventListener('click', handleViewOnMapClick);
+                });
+            }, function (error) {
+                console.error("Error getting user location:", error);
+            });
+        } else {
+            alert("Geolocation is not supported by your browser.");
+        }
+    });
+
+    // Calculate the distance between two sets of coordinates using the Haversine formula
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        // Implementation of the Haversine formula
+        // Return distance in kilometers
+        // You can find various Haversine implementations online
+
+        const R = 6371; // Earth's radius in kilometers
+        const dLat = degToRad(lat2 - lat1);
+        const dLon = degToRad(lon2 - lon1);
+
+        const a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(degToRad(lat1)) * Math.cos(degToRad(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return R * c;
+    }
+
+    function degToRad(deg) {
+        return deg * (Math.PI / 180);
+    }
+</script>
+
+</html>

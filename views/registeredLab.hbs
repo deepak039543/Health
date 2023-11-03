@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/themify-icons.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        body{
+             font-family: "Poppins", sans-serif;
+             background: #f5fbff;
+        }
+        .table {
+
+            width: 90%;
+            margin: auto;
+        }
+
+        h2 {
+            font-family: "Poppins", sans-serif;
+            margin-left: 5%;
+            margin-top: 5%;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-area ">
+            <div id="sticky-header" class="main-header-area">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-3 col-lg-2">
+                            <div class="logo">
+                                <a href="index.html">
+                                    <img src="./img/indian.png" alt="images">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-7">
+                            <div class="main-menu  d-none d-lg-block">
+                               <nav>
+                                     <ul id="navigation">
+                                            <li><a href="/registeredHospitals">Find
+                                                    Doctors</a></li>
+                                            <li><a href="/registeredLab">Book
+                                                    Lab Test</a></li>
+                                            <li><a href="#">Service Providers<i
+                                                        class="ti-angle-down"></i></a>
+                                                <ul class="submenu">
+                                                    <li><a href="/forHospitals">By
+                                                            Hospitals</a></li>
+                                                    <li><a href="/forDoctors">By
+                                                            Doctors</a></li>
+                                                    <li><a href="/labForm">By
+                                                            Laboratory</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="/showBlogs">Read
+                                                    Blogs</a></li>
+
+                                        </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+                            <div class="Appointment">
+                                <div class="book_btn d-none d-lg-block">
+                                    <a class="popup-with-form" href="#test-form">Make an
+                                        Appointment</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    {{!-- add table for showing active laboratory --}}
+    <h2>Find Laboratory/Hospital </h2>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Laboratory/Hospital Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Full Address</th>
+                <th scope="col">District</th>
+                <th scope="col">Pincode</th>
+                <th scope="col">Show Lab Packages</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each details}}
+            <tr>
+                <td>{{
+                    hospitalInput
+                    }}</td>
+                <td>{{type}}</td>
+                <td>{{address
+                    }}</td>
+                <td>{{district
+                    }}</td>
+                <td>{{pincode}}</td>
+                <td><a href="/laboData/{{hospitalInput}}" type="button" class="btn btn-success"
+                        value="{{hospitalInput}}">Show Lab Packages</a></td>
+            </tr>
+            {{/each}}
+
+        </tbody>
+    </table>
+</body>
+
+</html>

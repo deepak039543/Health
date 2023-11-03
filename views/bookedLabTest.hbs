@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+
+        <link rel="stylesheet" href="./css/bootstrap.min.css">
+        <link rel="stylesheet" href="./css/themify-icons.css">
+        <link rel="stylesheet" href="./css/style.css">
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+           
+        }
+
+        .card {
+            width: 300px;
+            margin: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .card-phone {
+            font-size: 1rem;
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .card-buttons {
+            margin-top: 20px;
+        }
+
+        .btn-accept, .btn-deny {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-accept {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+        .btn-deny {
+            background-color: #f44336;
+            color: #fff;
+        }
+         .cards {
+           
+            display: flex;
+            flex-wrap: wrap; 
+            justify-content: left;  /*justify the images in page (left,center ,right)*/
+        }
+    </style>
+    </head>
+
+    <body>
+        <header>
+            <div class="header-area ">
+                <div id="sticky-header" class="main-header-area">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-xl-3 col-lg-2">
+                                <div class="logo">
+                                    <a href="index.html">
+                                        <img src="./img/indian.png" alt="images">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-7">
+                                <div class="main-menu  d-none d-lg-block">
+                                    <nav>
+                                         <ul id="navigation">
+                                            <li><a href="/registeredHospitals">Find
+                                                    Doctors</a></li>
+                                            <li><a href="/registeredLab">Book
+                                                    Lab Test</a></li>
+                                            <li><a href="#">Service Providers<i
+                                                        class="ti-angle-down"></i></a>
+                                                <ul class="submenu">
+                                                    <li><a href="/forHospitals">By
+                                                            Hospitals</a></li>
+                                                    <li><a href="/forDoctors">By
+                                                            Doctors</a></li>
+                                                    <li><a href="/labForm">By
+                                                            Laboratory</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="/showBlogs">Read
+                                                    Blogs</a></li>
+
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+                                <div class="Appointment">
+                                    <div class="book_btn d-none d-lg-block">
+                                        <a class="popup-with-form"
+                                            href="#test-form">Make an
+                                            Appointment</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+     <h2>Welcome, {{labo.hospitalInput}} </h2>
+     <h5>Here check your booked Lab test</h5>
+        <div class="cards">
+            {{#each labappointment}}
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-name">{{name}}</div>
+                    <div class="card-phone">{{phone}}</div>
+                    <div class="card-phone">{{date}}</div>
+                    <div class="card-phone">{{labotestName}}</div>
+                    {{!-- <div class="card-buttons">
+                        <button class="btn-accept">Accept</button>
+                        <button class="btn-deny">Deny</button>
+                    </div> --}}
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </body>
+
+</html>

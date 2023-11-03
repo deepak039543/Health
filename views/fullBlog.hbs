@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/themify-icons.css">
+        <link rel="stylesheet" href="../css/style.css">
+        <style>
+        /* styles.css */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .article-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .article-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .article-subtitle {
+            font-size: 18px;
+            color: #555;
+            margin: 0;
+        }
+
+        .author-info {
+            margin-top: 20px;
+        }
+
+        .author-name,
+        .hospital-name,
+        .phone-number {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .article-content {
+            margin-top: 20px;
+        }
+
+        img,
+        video {
+            max-width: 100%;
+            height: auto;
+            margin: 10px 0;
+        }
+    </style>
+    </head>
+
+    <body>
+        <header>
+            <div class="header-area ">
+                <div id="sticky-header" class="main-header-area">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-xl-3 col-lg-2">
+                                <div class="logo">
+                                    <a href="/">
+                                        <img src="../img/indian.png"
+                                            alt="images">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-7">
+                                <div class="main-menu  d-none d-lg-block">
+                                    <nav>
+                                     <ul id="navigation">
+                                            <li><a href="/registeredHospitals">Find
+                                                    Doctors</a></li>
+                                            <li><a href="/registeredLab">Book
+                                                    Lab Test</a></li>
+                                            <li><a href="#">Service Providers<i
+                                                        class="ti-angle-down"></i></a>
+                                                <ul class="submenu">
+                                                    <li><a href="/forHospitals">By
+                                                            Hospitals</a></li>
+                                                    <li><a href="/forDoctors">By
+                                                            Doctors</a></li>
+                                                    <li><a href="/labForm">By
+                                                            Laboratory</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="/showBlogs">Read
+                                                    Blogs</a></li>
+
+                                        </ul>
+                                </nav>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+                                <div class="Appointment">
+                                    <div class="book_btn d-none d-lg-block">
+                                        <a class="popup-with-form"
+                                            href="#test-form">Make an
+                                            Appointment</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        {{!-- add blog section --}}
+ 
+        <div class="article-container">
+            <h1 class="article-title">Topic Title : {{blog.topic}}</h1>
+            <h2 class="article-subtitle">Subtopic : {{blog.subtopic}}</h2>
+
+            <div class="author-info">
+                <p class="author-name">Author: {{blog.doctorName}}</p>
+                <p class="hospital-name">Hospital: {{
+                    blog.doctorOrg
+                    }}</p>
+                <p class="phone-number">Phone: {{blog.doctorPhone}}</p>
+            </div>
+
+            <div class="article-content">
+                <p>
+                    {{blog.post}}
+                </p>
+
+                <img src="/doctorsUploads/{{blog.blogimages}}" alt="Image 1">
+               
+                {{#if blog.blogvideos}}
+                <video controls>
+                    <source src="/doctorsUploads/{{blog.blogvideos}}"
+                        type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                {{/if}}
+               
+            </div>
+        </div>
+       
+    </body>
+
+</html>
