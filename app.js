@@ -38,7 +38,7 @@ const upload = multer({ storage: storage });
 const port = 3000;
 
 require("./database/connection.js");
-const { HospitalData, Hospitals, Doctors, LabForm, Labdata, Appointment, Blog ,BooktestForm} = require("./model/schema.js");
+const { HospitalData, Hospitals, Doctors, LabForm, Labdata, Appointment, Blog, BooktestForm } = require("./model/schema.js");
 
 
 //use json file
@@ -89,9 +89,39 @@ app.post("/forHospitals", async (req, res) => {
 
     //  console.log(req.body);
     try {
+
         const { name, type, address, district, pincode, services, username, message, password } = req.body;
-
-
+        if (!req.body.name) {
+            return res.render('forHospitals', { error: '*please enter name' });
+        }
+        if (!req.body.username) {
+            return res.render('forHospitals', { error: '*please enter username' });
+        }
+        if (!req.body.type) {
+            return res.render('forHospitals', { error: '*please select hospital type' });
+        }
+        if (!req.body.address) {
+            return res.render('forHospitals', { error: '*please enter address' });
+        }
+        if (!req.body.district) {
+            return res.render('forHospitals', { error: '*please enter district' });
+        }
+        if (!req.body.pincode) {
+            return res.render('forHospitals', { error: '*please enter pincode' });
+        }
+        if (req.body.pincode.length > 6) {
+            return res.render('forHospitals', { error: '*please enter valid pincode' });
+        }
+        if (!req.body.services) {
+            return res.render('forHospitals', { error: '*please select services' });
+        }
+        if (!req.body.password) {
+            return res.render('forHospitals', { error: '*please enter password' });
+        }
+        const existUsername = await Hospitals.findOne({ username: req.body.username });
+        if (existUsername) {
+            return res.render('forHospitals', { error: '*username is already in use' });
+        }
         const hospital = new Hospitals({
             name,
             type,
@@ -110,7 +140,7 @@ app.post("/forHospitals", async (req, res) => {
         res.cookie("jwt", token);
 
         await hospital.save();
-        // res.send('Data saved successfully');
+        //  res.send('Data saved successfully');
         res.redirect("/hospitalDashboard");
     } catch (err) {
         console.log(err);
@@ -123,17 +153,24 @@ app.get("/hospitalLogin", (req, res) => {
     res.render("loginHospital");
 })
 //check user already registered or not if not then render registeration page otherwise send success response 
-app.post("/login", async (req, res) => {
+app.post("/hospitalLogin", async (req, res) => {
     try {
+
         const user = req.body.username;
+        if (!user) {
+            return res.render('loginHospital', { error: '*please enter username' });
+        }
         //  console.log(user);
         const pass = req.body.password;
+        if (!pass) {
+            return res.render('loginHospital', { error: '*please enter password' });
+        }
         //   console.log(pass);
         //  console.log(`${user} and password is ${pass}`);
         const userName = await Hospitals.findOne({ username: user });
 
         if (!userName) {
-            return res.render('login');
+            return res.render('loginHospital', { error: '*Username not found. Please register before logging in.' });
         }
 
         // console.log(userName.username)
@@ -166,13 +203,13 @@ app.post("/login", async (req, res) => {
 
             //save the last date and time when user login 
             // userName.lastLoginDate = loginDate;
-            // await userName.save();
+            await userName.save();
 
 
             // res.status(200).send("successfully login");
             res.redirect("/hospitalDashboard");
         } else {
-            res.render('login', { error: '*Invalid password!' });
+            res.render('loginHospital', { error: '*Invalid password!' });
         }
     } catch (err) {
         console.error("Error saving document:", err);
@@ -194,7 +231,7 @@ app.get("/hospitalDashboard", hospitalAuth, async (req, res) => {
 
     try {
         const hospital = req.user;
-        // console.log(hospital);
+        //  console.log(hospital);
         const details = await Doctors.find({ org: hospital.name });
         // console.log(details);
         res.render("hospitalDashboard", { hospital, details });
@@ -231,8 +268,51 @@ app.get("/forDoctors", async (req, res) => {
 })
 //handle doctors data and saved in mongodb
 app.post("/submit_info", upload.fields([{ name: 'images', maxCount: 1 }, { name: 'documents', maxCount: 5 }]), async (req, res) => {
+
+
+
     const hospitals = await Hospitals.find({});
     // console.log(req.files);
+    if (!req.body.name) {
+        return res.render('forDoctors', { error: '*please enter name', hospitals });
+    }
+    if (!req.body.username) {
+        return res.render('forDoctors', { error: '*please enter username', hospitals });
+    }
+    if (!req.body.org) {
+        return res.render('forDoctors', { error: '*please enter hospital name', hospitals });
+    }
+    if (!req.body.qualifications) {
+        return res.render('forDoctors', { error: '*please write about your qualifications', hospitals });
+    }
+    if (!req.body.specialization) {
+        return res.render('forDoctors', { error: '*please write about your specialization', hospitals });
+    }
+    if (!req.body.experience) {
+        return res.render('forDoctors', { error: '*please write about your experience', hospitals });
+    }
+    if (!req.files.images) {
+        return res.render('forDoctors', { error: '* Please upload a profile image', hospitals });
+    }
+    if (!req.files.documents) {
+        return res.render('forDoctors', { error: '* Please upload documents', hospitals });
+    }
+    if (!req.body.email) {
+        return res.render('forDoctors', { error: '*please enter email', hospitals });
+    }
+    if (!req.body.phone) {
+        return res.render('forDoctors', { error: '*please enter phone number', hospitals });
+    }
+    if (req.body.phone.length > 10) {
+        return res.render('forHospitals', { error: '*please enter valid phone number', hospitals });
+    }
+    if (!req.body.password) {
+        return res.render('forDoctors', { error: '*please enter password', hospitals });
+    }
+    const existUsername = await Doctors.findOne({ username: req.body.username });
+    if (existUsername) {
+        return res.render('forDoctors', { error: '*username is already in use', hospitals });
+    }
     try {
         const doctorData = new Doctors({
             name: req.body.name,
@@ -255,10 +335,10 @@ app.post("/submit_info", upload.fields([{ name: 'images', maxCount: 1 }, { name:
         //save token in cookies
         res.cookie("jwt", token);
 
-        await doctorData.save();
+         await doctorData.save();
 
         // res.send("Doctor's data saved successfully.");
-        res.redirect("/doctorDashboard");
+         res.redirect("/doctorDashboard");
     } catch (error) {
         // console.log(error);
         res.render("forDoctors", { hospitals });
@@ -274,14 +354,20 @@ app.get("/loginDoctor", (req, res) => {
 app.post("/loginDoctor", async (req, res) => {
     try {
         const user = req.body.username;
+        if (!user) {
+            return res.render('loginDoctor', { error: '*please enter username' });
+        }
         //  console.log(user);
         const pass = req.body.password;
+        if (!pass) {
+            return res.render('loginDoctor', { error: '*please enter password' });
+        }
         //   console.log(pass);
         //  console.log(`${user} and password is ${pass}`);
         const userName = await Doctors.findOne({ username: user });
 
         if (!userName) {
-            return res.render('loginDoctor');
+            return res.render('loginDoctor', { error: '*Username not found. Please register before logging in.' });
         }
 
         // console.log(userName.username)
@@ -346,6 +432,7 @@ app.get("/doctorDashboard", doctorAuth, async (req, res) => {
 
 
 
+
 // <----------------patient section (select hospital -> select doctors -> make an appointment)-------->
 
 
@@ -394,6 +481,18 @@ app.post("/appointment/:doctorID", async (req, res) => {
         const foundDoctors = await Doctors.findById(doctorID);
         // console.log(foundDoctors);
         //  const {name,phone,date,meetType }= req.body;
+        if (!req.body.name) {
+            return res.render('appointment', { error: '* Please enter name', doctorID });
+        }
+        if (!req.body.phone) {
+            return res.render('appointment', { error: '* Please enter phone number', doctorID });
+        }
+        if (!req.body.date) {
+            return res.render('appointment', { error: '* Please enter date', doctorID });
+        }
+        if (!req.body.meetType) {
+            return res.render('appointment', { error: '* Please select meet type', doctorID });
+        }
         const appointmentdetails = new Appointment({
             name: req.body.name,
             phone: req.body.phone,
@@ -441,7 +540,37 @@ app.get("/labForm", (req, res) => {
 app.post("/labForm", async (req, res) => {
     try {
         const { type, hospitalInput, address, state, district, pincode, username, password } = req.body;
-
+        if (req.body.type !== "hospital" || req.body.type !== "Laboratory") {
+            return res.render('forLabtest', { error: '*please select hospital/laboratory' });
+        }
+        if (!req.body.username) {
+            return res.render('forLabtest', { error: '*please enter username' });
+        }
+        if (!req.body.hospitalInput) {
+            return res.render('forLabtest', { error: '*please enter hospital/laboratory name' });
+        }
+        if (!req.body.address) {
+            return res.render('forLabtest', { error: '*please enter address' });
+        }
+        if (!req.body.district) {
+            return res.render('forLabtest', { error: '*please enter district' });
+        }
+        if (!req.body.state) {
+            return res.render('forLabtest', { error: '*please enter state' });
+        }
+        if (!req.body.pincode) {
+            return res.render('forLabtest', { error: '*please enter pincode' });
+        }
+        if (req.body.pincode.length > 6) {
+            return res.render('forLabtest', { error: '*please enter valid pincode' });
+        }
+        if (!req.body.password) {
+            return res.render('forLabtest', { error: '*please enter password' });
+        }
+        const existUsername = await LabForm.findOne({ username: req.body.username });
+        if (existUsername) {
+            return res.render('forLabtest', { error: '*username is already in use' });
+        }
         const labDetails = new LabForm({
             type,
             hospitalInput,
@@ -473,13 +602,19 @@ app.post("/loginLab", async (req, res) => {
     try {
         const user = req.body.username;
         //  console.log(user);
+        if (!user) {
+            return res.render('loginLab', { error: '*please enter username' });
+        }
         const pass = req.body.password;
         //   console.log(pass);
+        if (!pass) {
+            return res.render('loginLab', { error: '*please enter password' });
+        }
         //  console.log(`${user} and password is ${pass}`);
         const userName = await LabForm.findOne({ username: user });
 
         if (!userName) {
-            return res.render('loginLab');
+            return res.render('loginLab', { error: '*Username not found. Please register before logging in.' });
         }
 
         // console.log(userName.username)
@@ -514,8 +649,11 @@ app.get("/labTest", labAuth, async (req, res) => {
     }
 })
 
- // Handle the POST request
+// Handle the POST request
 app.post('/fill_lab_test', labAuth, async (req, res) => {
+    const labuser = req.user;
+    // console.log(labuser.hospitalInput);
+    const cards = await Labdata.find({ name: labuser.hospitalInput });
     try {
         const labTest = new Labdata(req.body);
         // console.log(labTest);
@@ -530,25 +668,27 @@ app.post('/fill_lab_test', labAuth, async (req, res) => {
         res.redirect('/labTest');
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error saving data to MongoDB');
+        // res.status(500).send('Error saving data to MongoDB');
+        res.render("fillLabdetails", { cards, labuser, error: "*server error" });
     }
 });
 //here laboratory/hospitals can see booked lab test
-app.get("/labDashboard",labAuth,async(req,res)=>{
-    try{
+app.get("/labDashboard", labAuth, async (req, res) => {
+    try {
         const labo = req.user;
         // console.log(labo);
-        const labappointment = await BooktestForm.find({laboName : labo.hospitalInput
+        const labappointment = await BooktestForm.find({
+            laboName: labo.hospitalInput
         });
         // console.log(labappointment);
-        res.render("bookedLabTest",{ labo ,labappointment});
-    }catch(err){
+        res.render("bookedLabTest", { labo, labappointment });
+    } catch (err) {
         console.log(err);
     }
 })
-app.post("/login", (req, res) => {
-    res.status(201).send("success..!")
-})
+// app.post("/login", (req, res) => {
+//     res.status(201).send("success..!")
+// })
 
 
 
@@ -576,13 +716,27 @@ app.post("/login", (req, res) => {
 // <------------ articles section (write articles ) and show that articles to everyone ------------>
 
 app.get("/writeBlogs", doctorAuth, (req, res) => {
-    console.log(req.user);
+    // console.log(req.user);
     res.render("writeBlogs");
 })
 app.post("/writeBlogs", doctorAuth, upload.fields([{ name: 'blogimages', maxCount: 5 }, { name: 'blogvideos', maxCount: 2 }]), async (req, res) => {
     try {
-        // const doctor = req.user;
-
+        const doctor = req.user;
+        if (!req.body.topic) {
+            return res.render('writeBlogs', { error: '*please enter topic name' });
+        }
+        if (!req.body.subtopic) {
+            return res.render('writeBlogs', { error: '*please enter sub topic name' });
+        }
+        if (!req.body.post) {
+            return res.render('writeBlogs', { error: '*please write the post ' });
+        }
+        if (!req.files.blogimages) {
+            return res.render('writeBlogs', { error: '*please attach image  ' });
+        }
+        if (!req.files.blogvideos) {
+            return res.render('writeBlogs', { error: '*please attach video' });
+        }
 
         const details = new Blog({
             topic: req.body.topic,
@@ -672,52 +826,66 @@ app.get("/laboData/:laboName", async (req, res) => {
         //     doctor._id = doctor._id.toHexString();
         // });
         // console.log(foundDoctors);
-         res.render("showlabPackage", { packages : foundLabPackage });
+        res.render("showlabPackage", { packages: foundLabPackage });
     } catch (err) {
         console.log(err);
     }
 })
 //when patient click to any lab test packeges then open a form for booking
-app.get("/bookTest/:testId",async(req,res)=>{
-    try{
-       const testId = req.params.testId;
-    //    console.log(testId);
-       const book = await Labdata.find({_id : testId});
-    //    console.log(book);
-       res.render("bookTestForm",{testId});
-    }catch(err){
+app.get("/bookTest/:testId", async (req, res) => {
+    try {
+        const testId = req.params.testId;
+        //    console.log(testId);
+        const book = await Labdata.find({ _id: testId });
+        //    console.log(book);
+        res.render("bookTestForm", { testId });
+    } catch (err) {
         console.log(err);
     }
 })
-app.post("/bookTest/:testId",upload.fields([{ name: 'documents', maxCount: 5 }]),async(req,res)=>{
-    try{
-         const testid = req.params.testId;
-        //  console.log(testid);
-         const labdetails = await Labdata.findById(testid);
-        //  console.log(labdetails);
-
-         const form = new BooktestForm({
-            name : req.body.name,
-            phone :req.body.phone,
-            date : req.body.date,
-            meetType : req.body.meetType,
-            laboName :labdetails.name,
-            labotestName : labdetails.labTestName,
+app.post("/bookTest/:testId", upload.fields([{ name: 'documents', maxCount: 5 }]), async (req, res) => {
+    try {
+        const testId = req.params.testId;
+        //   console.log(testId);
+        const labdetails = await Labdata.findById(testId);
+        //   console.log(labdetails);
+        if (!req.body.name) {
+            return res.render('bookTestForm', {testId , error: '*please enter your name' });
+        }
+        if (!req.body.phone) {
+            return res.render('bookTestForm', { testId , error: '*please enter phone number' });
+        }
+        if (!req.body.date) {
+            return res.render('bookTestForm', { testId , error: '*please enter appointment date' });
+        }
+        if (!req.body.meetType) {
+            return res.render('bookTestForm', { testId , error: '*please select meet type' });
+        }
+        if (!req.files.documents) {
+            return res.render('bookTestForm', { testId ,error: '*please upload doctor prescription' });
+        }
+        const form = new BooktestForm({
+            name: req.body.name,
+            phone: req.body.phone,
+            date: req.body.date,
+            meetType: req.body.meetType,
+            laboName: labdetails.name,
+            labotestName: labdetails.labTestName,
             documents: req.files && req.files['documents'] ? req.files['documents'].map(file => path.basename(file.path)) : [],
 
         })
-          
+
         console.log(form);
         await form.save();
         // res.send("success!");
         res.redirect("/registeredLab");
-    }catch(err){
+    } catch (err) {
         console.log(err);
     }
 })
 
 
-app.get("/insurance",(req,res)=>{
+app.get("/insurance", (req, res) => {
     res.render("insurance");
 })
 

@@ -235,12 +235,24 @@
     </header>
 
     <!-- add a form  -->
+    <style>
+        .error {
+            color: red;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+        }
+    </style>
     <div class="formbold-main-wrapper">
 
         <div class="formbold-form-wrapper">
             <form action="/submit_info" method="POST" enctype="multipart/form-data">
                 <h2>Registration Form for Doctors</h2>
                 <p>if you already sign up then click here <a style="color:blue;" href="/loginDoctor">login</a></p>
+                   <div>
+                    {{#if error}}
+                    <p class="error">{{ error }}</p>
+                    {{/if}}
+                </div>
                 <div class="formbold-input-group">
                     <label for="name" class="formbold-form-label"></label>
                     <input type="text" name="name" id="name" placeholder="Enter your name"

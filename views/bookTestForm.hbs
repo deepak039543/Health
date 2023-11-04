@@ -237,7 +237,13 @@
 
 
 
-
+<style>
+        .error {
+            color: red;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+        }
+    </style>
 
  <!-- add a appointment form  -->
     <div class="formbold-main-wrapper">
@@ -245,6 +251,11 @@
         <div class="formbold-form-wrapper">
             <form action="/bookTest/{{testId}}" method="POST" enctype="multipart/form-data">
              <h3>Lab Test Form</h3>
+              <div>
+                    {{#if error}}
+                    <p class="error">{{ error }}</p>
+                    {{/if}}
+                </div>
                 <div class="formbold-input-group">
                     <label for="name" class="formbold-form-label"></label>
                     <input type="text" name="name" id="name" placeholder="Enter Patient name"

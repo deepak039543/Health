@@ -231,17 +231,27 @@
             </div>
         </div>
     </header>
-
+<style>
+        .error {
+            color: red;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+        }
+    </style>
     <!-- add a form for submitting details about write blogs -->
     <div class="formbold-main-wrapper">
 
         <div class="formbold-form-wrapper">
             <form action="/writeBlogs" method="POST" enctype="multipart/form-data">
                 <h2>Write Blog</h2>
-
+                  <div>
+                    {{#if error}}
+                    <p class="error">{{ error }}</p>
+                    {{/if}}
+                </div>
                 <div class="formbold-input-group">
                     <label for="topic" class="formbold-form-label"></label>
-                    <input type="text" name="topic" id="topic" placeholder="Enter topic name"
+                    <input type="text" name="topic" id="topic"  placeholder="Enter topic name"
                         class="formbold-form-input" />
                 </div>
 

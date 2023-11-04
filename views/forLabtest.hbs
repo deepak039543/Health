@@ -236,6 +236,13 @@
     </header>
 
 
+ <style>
+        .error {
+            color: red;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+        }
+    </style>
 
      <!-- add a form for laboratory registration  -->
     <div class="formbold-main-wrapper">
@@ -244,6 +251,11 @@
             <form action="" method="POST">
                 <h2>Registration Form for Lab</h2>
               <p>if you already sign up then click here <a style="color:blue;" href="/loginLab">login</a></p>
+                  <div>
+                    {{#if error}}
+                    <p class="error">{{ error }}</p>
+                    {{/if}}
+                </div>
                 <div class="formbold-input-group">
                     <label class="formbold-form-label">
                        

@@ -193,7 +193,13 @@
     </header>
 
     {{!-- add a login page --}}
-
+<style>
+        .error {
+            color: red;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+        }
+    </style>
 
     <div class="wrapper">
         <form action="/loginLab" method="POST">
@@ -201,7 +207,11 @@
                 <h2>Welcome!</h2>
                 <p>Sign In to your account</p>
             </div>
-
+ <div>
+                    {{#if error}}
+                    <p class="error">{{ error }}</p>
+                    {{/if}}
+                </div>
             <div class="input-group">
                 <input type="text" id="username" class="input-field" name="username" placeholder="Username">
             </div>

@@ -67,7 +67,7 @@ const hospitalData = new mongoose.Schema({
     },
     message:{
         type: String,
-        required: true,
+       
     },
     password:{
         type: String,
@@ -119,7 +119,7 @@ const doctorSchema = new mongoose.Schema({
     },
     message :{
         type: String,
-        required: true
+       
     },
     password :{
         type: String,
@@ -178,6 +178,7 @@ const labform = new mongoose.Schema({
 
 })
 
+
 const labtest = new mongoose.Schema({
     name: {
         type: String,
@@ -196,7 +197,7 @@ const labtest = new mongoose.Schema({
     },
     extraInfo: {
         type: String,
-        required: true,
+       
     },
     price:{
         type : String,
