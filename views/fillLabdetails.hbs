@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Laboratory Info Form</title>
+    <title>Lab Dashboard</title>
     <meta name="description" content>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -62,6 +62,7 @@
 
         body {
             font-family: 'poppins', sans-serif;
+            background: #f5fbff ;
         }
 
 
@@ -188,7 +189,7 @@
             padding: 14px 25px;
             border: none;
             font-weight: 500;
-            background-color: #6a64f1;
+            background-color: #1e79a1;
             color: white;
             cursor: pointer;
             margin-top: 25px;
@@ -233,25 +234,25 @@
 
         .card-qualification {
             font-size: 1rem;
-            color: #666;
+            color: black;
             margin: 5px 0;
         }
 
         .card-specialization {
             font-size: 1rem;
-            color: #666;
+            color: black;
             margin: 5px 0;
         }
 
         .card-email {
             font-size: 1rem;
-            color: #666;
+            color: black;
             margin: 5px 0;
         }
 
         .card-phone {
             font-size: 1rem;
-            color: #666;
+            color: black;
             margin: 5px 0;
         }
 
@@ -306,6 +307,11 @@
             padding: 4px;
             border-radius: 5px;
         }
+         .add-button {
+            margin-top: 5%;
+            margin-left:3%;
+            display: flex;
+        }
     </style>
 </head>
 
@@ -340,8 +346,16 @@
                                                         Laboratory</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="/showBlogs">Read
-                                                Blogs</a></li>
+                                      <li><a href="#">Others<i
+                                                        class="ti-angle-down"></i></a>
+                                                <ul class="submenu">
+                                                   <li><a href="/showBlogs">Read
+                                                    Blogs</a></li>
+                                                    <li><a href="/insurance">about government schema</a></li>
+                                                    <li><a href="/findDoctors">check hospital under MA Amrutum
+                                                            </a></li>
+                                                </ul>
+                                            </li>
 
                                     </ul>
                                 </nav>
@@ -364,23 +378,12 @@
 
 
     <div class="headingCotent">
-        <h2 class=" welcome ">Welcome , {{labuser.username}}</h2>
-        <h3 style="text-align: center;">Please enter the deails of your Lab Packages : </h3>
+        <h1 class=" welcome ">Welcome , {{labuser.username}}</h1>
+        <h3 style="text-align: center; color:#666">Please enter the deails of your Lab Packages : </h3>
         {{!-- <button class="open-button" onclick="openModal()"> Click here</button> --}}
         <button class="headBtn" href="#" onclick="openModal()" > Click here</button>
 
     </div>
-
-    <!-- Button to open the modal -->
-
-    <div class="add-button">
-        <h3>If you are interested to write health articles then click here : <a href="#" style="background: #1e79a1; color:white; border-radius: 5px; padding: 1px">write articles</a></h3>
-        {{!-- <h3>add articles</h3> --}}
-             
-    </div>
-
-
-
 
     <!-- add a lab popup model  -->
     <div class="formbold-main-wrapper">
@@ -389,21 +392,21 @@
             <div id="myModal" class="modal">
                 <div class="modal-content">
                     <span class="close-button" onclick="closeModal()">&times;</span>
-                    <h3>Form in Popup Modal</h3>
+                    <h3>Add Lab Packages</h3>
                     <form action="/fill_lab_test" method="POST">
                         <div class="formbold-input-group">
-                            <label for="name" class="formbold-form-label">Hospital/Laboratory Name </label>
+                            <label for="name" class="formbold-form-label"> </label>
                             <input type="text" name="name" id="name" placeholder="Enter your Hospital/Laboratory name"
                                 class="formbold-form-input" />
                         </div>
 
                         <div class="formbold-input-group">
                             <label class="formbold-form-label">
-                                Type of Lab Test :
+                               
                             </label>
 
                             <select class="formbold-form-select" name="labType" id="labType">
-                                <option value="Student">select</option>
+                                <option value="Student">type of lab test</option>
                                 <option value="fever">Fever</option>
                                 <option value="skin">Skin</option>
                                 <option value="diabetes">Diabetes</option>
@@ -418,20 +421,20 @@
                         </div>
 
                         <div class="formbold-input-group">
-                            <label for="labTestName" class="formbold-form-label">Lab Test Name </label>
+                            <label for="labTestName" class="formbold-form-label"> </label>
                             <input type="text" name="labTestName" id="labTestName" placeholder="Enter Lab Test Name"
                                 class="formbold-form-input" />
                         </div>
 
                         <div>
                             <label for="extraInfo" class="formbold-form-label">
-                                Extra info about This Lab Test
+                               
                             </label>
-                            <textarea rows="4" name="extraInfo" id="extraInfo" placeholder="Type here..."
+                            <textarea rows="4" name="extraInfo" id="extraInfo" placeholder=" Extra info about This Lab Test..."
                                 class="formbold-form-input"></textarea>
                         </div>
                         <div class="formbold-input-group">
-                            <label for="price" class="formbold-form-label">Price </label>
+                            <label for="price" class="formbold-form-label"></label>
                             <input type="text" name="price" id="price" placeholder="Enter price"
                                 class="formbold-form-input" />
                         </div>
@@ -450,8 +453,9 @@
             <img class="card-image" src="./healthImages/{{labType}}.jpg" alt="Profile Image">
             <div class="card-content">
                 <div class="card-name"> {{labType}}</div>
-                <div class="card-qualification"> {{labTestName}}</div>
-                <div class="card-specialization">{{extraInfo}}</div>
+                <div class="card-qualification">lab test : {{labTestName}}</div>
+                <div class="card-specialization">extra info : {{extraInfo}}</div>
+                <div class="card-specialization">price : </div>
             </div>
         </div>
         {{/each}}
@@ -459,7 +463,10 @@
 
 
 
-
+ <div class="add-button">
+        <h4 style="color:#666">here check you booked Lab Test : </h4>
+        <a href="/labDashboard" style="background: #1e79a1; color:white; border-radius: 3px; padding: 3px; ">see book lab test</a>
+    </div>
 
 
 
@@ -546,6 +553,7 @@
             {{/each}}
         </div>
     </div> --}}
+
 
 </body>
 <script>

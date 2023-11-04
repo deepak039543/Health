@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Laboratory Info Form</title>
+        <title>select doctors</title>
         <meta name="description" content>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -92,6 +92,9 @@
             flex-wrap: wrap; 
             justify-content: left;  /*justify the images in page (left,center ,right)*/
         }
+        .slice{
+            margin-top: 5%;
+        }
     </style>
     </head>
 
@@ -128,8 +131,16 @@
                                                             Laboratory</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="/showBlogs">Read
+                                             <li><a href="#">Others<i
+                                                        class="ti-angle-down"></i></a>
+                                                <ul class="submenu">
+                                                   <li><a href="/showBlogs">Read
                                                     Blogs</a></li>
+                                                    <li><a href="/insurance">about government schema</a></li>
+                                                    <li><a href="/findDoctors">check hospital under MA Amrutum
+                                                            </a></li>
+                                                </ul>
+                                            </li>
 
                                         </ul>
                                     </nav>
@@ -150,6 +161,9 @@
                 </div>
             </div>
         </header>
+      <div class="slice">
+        <h3>Here you select doctors and click to make an  appointment</h3>
+      </div>
         <div class="card-container">
             {{#each doctors}}
             <div class="card">
@@ -189,6 +203,7 @@
             </div>
             {{/each}}
         </div> --}}
+
 
     </body>
 

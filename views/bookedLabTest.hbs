@@ -4,15 +4,15 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Lab: see booked lab test</title>
 
         <link rel="stylesheet" href="./css/bootstrap.min.css">
         <link rel="stylesheet" href="./css/themify-icons.css">
         <link rel="stylesheet" href="./css/style.css">
         <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            font-family: "poppins", sans-serif;
+            background-color:  #f5fbff;
            
         }
 
@@ -38,7 +38,7 @@
 
         .card-phone {
             font-size: 1rem;
-            color: #666;
+            color: black;
             margin: 5px 0;
         }
 
@@ -69,6 +69,10 @@
             flex-wrap: wrap; 
             justify-content: left;  /*justify the images in page (left,center ,right)*/
         }
+        .slice{
+            margin-top: 5%;
+            margin-left: 3%;
+        }
     </style>
     </head>
 
@@ -88,7 +92,7 @@
                             <div class="col-xl-6 col-lg-7">
                                 <div class="main-menu  d-none d-lg-block">
                                     <nav>
-                                         <ul id="navigation">
+                                        <ul id="navigation">
                                             <li><a href="/registeredHospitals">Find
                                                     Doctors</a></li>
                                             <li><a href="/registeredLab">Book
@@ -104,9 +108,16 @@
                                                             Laboratory</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="/showBlogs">Read
+                                            <li><a href="#">Others<i
+                                                        class="ti-angle-down"></i></a>
+                                                <ul class="submenu">
+                                                   <li><a href="/showBlogs">Read
                                                     Blogs</a></li>
-
+                                                    <li><a href="/insurance">about government schema</a></li>
+                                                    <li><a href="/findDoctors">check hospital under MA Amrutum
+                                                            </a></li>
+                                                </ul>
+                                            </li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -126,24 +137,54 @@
                 </div>
             </div>
         </header>
-     <h2>Welcome, {{labo.hospitalInput}} </h2>
-     <h5>Here check your booked Lab test</h5>
+        <div class="slice">
+            <h1>Welcome, {{labo.hospitalInput}} </h1>
+            <h5>Here check your booked Lab test</h5>
+        </div>
         <div class="cards">
             {{#each labappointment}}
             <div class="card">
                 <div class="card-content">
-                    <div class="card-name">{{name}}</div>
-                    <div class="card-phone">{{phone}}</div>
+                    <div class="card-name"> Patient name : {{name}}</div>
+                    <div class="card-phone">Phone : {{phone}}</div>
+                    <div class="card-phone">Lab Test : {{labotestName}}</div>
+                    <div class="card-phone">Meet : {{meetType}}</div>
                     <div class="card-phone">{{date}}</div>
-                    <div class="card-phone">{{labotestName}}</div>
-                    {{!-- <div class="card-buttons">
-                        <button class="btn-accept">Accept</button>
-                        <button class="btn-deny">Deny</button>
-                    </div> --}}
+
+                    <div class="card-buttons">
+                        <a class="btn-accept acceptButton">Accept</a>
+                        <a class="btn-deny denyButton">Deny</a>
+                    </div>
+
                 </div>
             </div>
             {{/each}}
         </div>
+  
     </body>
+    <script>
+    // Add a click event listener for the "Accept" buttons
+    const acceptButtons = document.querySelectorAll(".acceptButton");
+    acceptButtons.forEach(acceptButton => {
+        acceptButton.addEventListener("click", () => handleAcceptClick(acceptButton));
+    });
 
+    // Add a click event listener for the "Deny" buttons
+    const denyButtons = document.querySelectorAll(".denyButton");
+    denyButtons.forEach(denyButton => {
+        denyButton.addEventListener("click", () => handleDenyClick(denyButton));
+    });
+
+    function handleAcceptClick(button) {
+        button.textContent = "Accepted";
+        const denyButton = button.nextElementSibling; // Get the adjacent "Deny" button
+        denyButton.style.display = "none";
+    }
+
+    function handleDenyClick(button) {
+        button.textContent = "Denied";
+        const acceptButton = button.previousElementSibling; // Get the adjacent "Accept" button
+        acceptButton.style.display = "none";
+    }
+</script>
 </html>

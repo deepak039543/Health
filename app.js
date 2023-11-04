@@ -11,6 +11,7 @@ const doctorAuth = require("./middleware/doctorAuth.js");
 const labAuth = require("./middleware/labAuth.js");
 
 
+
 app.use(cookieParser());
 
 // Define the path to your public folder
@@ -716,7 +717,9 @@ app.post("/bookTest/:testId",upload.fields([{ name: 'documents', maxCount: 5 }])
 })
 
 
-
+app.get("/insurance",(req,res)=>{
+    res.render("insurance");
+})
 
 
 

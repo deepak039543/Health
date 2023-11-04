@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Laboratory Info Form</title>
+    <title>hospital dashboard</title>
     <meta name="description" content>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -12,12 +12,12 @@
     <link rel="stylesheet" href="../css/style.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            font-family:"poppins", sans-serif;
+            background-color: #f5fbff;
         }
 
         .card {
-            width: 300px;
+            width: 400px;
             margin: 20px;
             background-color: #fff;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -42,35 +42,40 @@
             font-size: 1.2rem;
             font-weight: bold;
             margin: 10px 0;
+            padding: 5px;
         }
 
         .card-qualification {
             font-size: 1rem;
-            color: #666;
+            color: black;
             margin: 5px 0;
+             padding: 3px;
         }
 
         .card-specialization {
             font-size: 1rem;
-            color: #666;
+              color: black;
             margin: 5px 0;
+             padding: 3px;
         }
 
         .card-email {
             font-size: 1rem;
-            color: #666;
+            color: black;
             margin: 5px 0;
+             padding: 3px;
         }
 
         .card-phone {
             font-size: 1rem;
-            color: #666;
+             color: black;
             margin: 5px 0;
+             padding: 3px;
         }
 
         .appointment-button {
-            background-color: #28a745;
-            color: black;
+            background-color:#1e79a1 ;
+            color: white;
             border: none;
             border-radius: 4px;
             padding: 10px 20px;
@@ -80,7 +85,7 @@
         }
 
         .appointment-button:hover {
-            background-color: #28a745;
+            color: black ;
         }
 
         .card-container {
@@ -89,6 +94,13 @@
             flex-wrap: wrap;
             justify-content: left;
             /*justify the images in page (left,center ,right)*/
+        }
+        .slice{
+            margin-top: 5%;
+            margin-left:3%
+        }
+        .documents{
+            color:#1e79a1;
         }
     </style>
 </head>
@@ -125,8 +137,16 @@
                                                             Laboratory</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="/showBlogs">Read
+                                             <li><a href="#">Others<i
+                                                        class="ti-angle-down"></i></a>
+                                                <ul class="submenu">
+                                                   <li><a href="/showBlogs">Read
                                                     Blogs</a></li>
+                                                    <li><a href="/insurance">about government schema</a></li>
+                                                    <li><a href="/findDoctors">check hospital under MA Amrutum
+                                                            </a></li>
+                                                </ul>
+                                            </li>
 
                                         </ul>
                                 </nav>
@@ -146,9 +166,9 @@
             </div>
         </div>
     </header>
-    <div>
-        <h2>Welcome ,{{hospital.name}}</h2>
-        <p>Here you can check you hospital list</p>
+    <div class="slice">
+        <h1>Welcome ,{{hospital.name}}</h1>
+        <p>Here you can check you doctors list</p>
     </div>
     <div class="card-container">
         {{#each details}}
@@ -163,10 +183,10 @@
                    <div class="card-email">{{email}}</div>
                 <div class="card-phone">{{phone}}</div>
                 <div>
-                    <a href="../doctorsUploads/{{documents}}" target="_blank">view documents
+                    <a href="../doctorsUploads/{{documents}}" target="_blank" class="documents">view documents
                     </a>
                 </div>
-                <div style="margin-top :3px;">
+                <div style="margin-top :3px; padding:5px">
                     <a href="#" class="appointment-button">Varified
                     </a>
                 </div>

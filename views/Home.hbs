@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Home</title>
+        <title>Medico</title>
         <link rel="stylesheet" href="./css/bootstrap.min.css">
         <link rel="stylesheet" href="./css/themify-icons.css">
         <link rel="stylesheet" href="./css/style.css">
@@ -75,7 +75,7 @@
                         <div class="row align-items-center">
                             <div class="col-xl-3 col-lg-2">
                                 <div class="logo">
-                                    <a href="index.html">
+                                    <a href="/">
                                         <img src="../img/indian.png" alt="images">
                                     </a>
                                 </div>
@@ -99,8 +99,16 @@
                                                             Laboratory</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="/showBlogs">Read
+                                          <li><a href="#">Others<i
+                                                        class="ti-angle-down"></i></a>
+                                                <ul class="submenu">
+                                                   <li><a href="/showBlogs">Read
                                                     Blogs</a></li>
+                                                    <li><a href="/insurance">about government schema</a></li>
+                                                    <li><a href="/findDoctors">check hospital under MA Amrutum
+                                                            </a></li>
+                                                </ul>
+                                            </li>
 
                                         </ul>
                                     </nav>
@@ -136,12 +144,12 @@
                                 <div class="slider_text ">
                                     <h3> <span>Health care</span> <br>
                                         For Whole Family </h3>
-                                    <p style="color:black">In healthcare sector,
+                                    <p style="color:white">In healthcare sector,
                                         service excellence is the facility of
                                         <br> the hospital as
                                         healthcare service provider to
                                         consistently.</p>
-                                    <a href="#" class="boxed-btn3">Check
+                                    <a href="/findDoctors" class="boxed-btn3">Check
                                         Hospitals under MA Amrutam</a>
                                 </div>
                             </div>
@@ -174,7 +182,7 @@
                             <h3>Book Lab Test</h3>
                             <p> We prioritize clinical excellence to provide you
                                 with accurate and timely results.</p>
-                            <a href="#" class="boxed-btn3-white">Book Lab Test</a>
+                            <a href="/registeredLab" class="boxed-btn3-white">Book Lab Test</a>
                         </div>
                     </div>
                     <div class="col-xl-4 col-md-4">
@@ -185,7 +193,7 @@
                             <h3>Emergency Care</h3>
                             <p>Our emergency care are dedicated to providing
                                 rapid and life-saving care, 24/7</p>
-                            <a href="#" class="boxed-btn3-white">Make an
+                            <a href="/registeredHospitals" class="boxed-btn3-white">Make an
                                 Appointment</a>
                             {{!-- <p>Our emergency services are dedicated to
                                 providing rapid and life-saving care, 24/7</p>
@@ -385,10 +393,9 @@
 
         </div>
 
+ {{!-- footer start here --}}
 
-
-<!-- footer start -->
-    <footer class="footer">
+     <footer class="footer">
             <div class="footer_top">
                 <div class="container">
                     <div class="row">
@@ -459,6 +466,7 @@
             </div>
         </footer>
 <!-- footer end  -->
+
     </body>
 
 </html>
