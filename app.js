@@ -60,7 +60,7 @@ app.set("view engine", "hbs");
 
 //render the home page to user
 app.get("/", (req, res) => {
-    res.render("home");
+    res.render("Home");
 })
 
 
